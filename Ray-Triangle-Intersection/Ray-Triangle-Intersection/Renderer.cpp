@@ -212,7 +212,7 @@ void Renderer::Render(const Scene& scene)
 {
     std::vector<Vector3f> framebuffer(scene.width * scene.height);
 
-    float scale = std::tan(deg2rad(scene.fov * 0.5f));
+    float scale = std::tan(deg2rad(scene.fov * 0.5f)); // distance from the camera to the image plane / half of the image plane hight
     float imageAspectRatio = scene.width / (float)scene.height;
 
     // Use this variable as the eye position to start your rays.
@@ -229,7 +229,9 @@ void Renderer::Render(const Scene& scene)
             // vector that passes through it.
             // Also, don't forget to multiply both of them with the variable *scale*, and
             // x (horizontal) variable with the *imageAspectRatio*            
-
+           
+            x = (2 * (((float)i + 0.5) / scene.width) - 1) * imageAspectRatio * scale;
+            y = (1. - 2 * (((float)j + 0.5) / scene.height)) * scale;
             Vector3f dir = Vector3f(x, y, -1); // Don't forget to normalize this direction!
             framebuffer[m++] = castRay(eye_pos, dir, scene, 0);
         }

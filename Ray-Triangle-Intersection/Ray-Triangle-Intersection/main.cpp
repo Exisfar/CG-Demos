@@ -9,6 +9,8 @@
 // maximum recursion depth, field-of-view, etc.). We then call the render
 // function().
 int main() {
+  // 定义场景的参数，添加物体（球体或三角形）到场景中，
+  // 并设置其材质，然后将光源添加到场景中。
   Scene scene(1280, 960);
 
   auto sph1 = std::make_unique<Sphere>(Vector3f(-1, 0, -12), 2);
@@ -33,6 +35,9 @@ int main() {
   scene.Add(std::make_unique<Light>(Vector3f(30, 50, -12), 0.5));
 
   Renderer r;
+  // 调用 Render(scene) 函数。在遍历所有像素的循环里，
+  // 生成对应的光线并将返回的颜色保存在帧缓冲区（framebuffer）中。
+  // 在渲染过程结束后，帧缓冲区中的信息将被保存为图像。
   r.Render(scene);
 
   return 0;
